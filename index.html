@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Kite Connect JS FrontEnd Demo</title>
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+
+	<style type="text/css">
+		body {
+			font-family: 'Source Sans Pro', sans-serif;
+			background-color: #f5f5f5;
+		}
+		.main {
+			background-color: white;
+			margin: 10px auto;
+			max-width: 900px;
+			padding: 20px;
+		}
+	</style>
+</head>
+<body>
+
+<div class="container main">
+	<h1 class="text-center pb-4">Kite Connect JS FrontEnd Demo</h1>
+	<div class="form">
+		<form class="form-inline row pb-2" action="" id="form" method="get">
+			<div class="form-group col-md-10 row">
+				<label for="scrip" class="col-md-4">Select Scrip</label>
+				<select class="form-control custom-select col-md-8" id="drop" name="token" id="scrip">
+					<option value="" selected>Select Scrip</option>
+					<option value="738561">Reliance Industries (NSE)</option>
+					<option value="408065">Infosys (NSE)</option>
+					<option value="633601">ONGC (NSE)</option>
+					<option value="2953217">TCS (NSE)</option>
+					<option value="128046084">HDFC Bank (BSE)</option>
+				</select>
+			</div>
+			<div class="col-md-2">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+	</div>
+	<div id="output" style="display: none">
+		<hr />
+		<h1 id="name" class="pb-2 pt-2"></h1>
+		<table class="table table-bordered">
+			<thead class="thead-default">
+				<tr>
+					<th>Propraty</th>
+					<th>Value</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Token</td>
+					<td><span id="Token"></span></td>
+				</tr>
+				<tr>
+					<td>LastTradedPrice</td>
+					<td><span id="LastTradedPrice"></span></td>
+				</tr>
+				<tr>
+					<td>NetPriceChangeFromClosingPrice</td>
+					<td><span id="NetPriceChangeFromClosingPrice"></span></td>
+				</tr>
+				<tr>
+					<td>PriceChangeFromClosingPrice</td>
+					<td><span id="PriceChangeFromClosingPrice"></span></td>
+				</tr>
+				<tr>
+					<td>NetPriceChangeFromClosingPrice (Round)</td>
+					<td><span id="NetPriceChangeFromClosingPriceRound"></span></td>
+				</tr>
+				<tr>
+					<td>PriceChangeFromClosingPrice (Round)</td>
+					<td><span id="PriceChangeFromClosingPriceRound"></span></td>
+				</tr>
+				<tr>
+					<td>VolumeTradedToday</td>
+					<td><span id="VolumeTradedToday"></span></td>
+				</tr>
+				<tr>
+					<td>OpenPrice</td>
+					<td><span id="OpenPrice"></span></td>
+				</tr>
+				<tr>
+					<td>HighPrice</td>
+					<td><span id="HighPrice"></span></td>
+				</tr>
+				<tr>
+					<td>LowPrice</td>
+					<td><span id="LowPrice"></span></td>
+				</tr>
+				<tr>
+					<td>ClosePrice</td>
+					<td><span id="ClosePrice"></span></td>
+				</tr>
+				<tr>
+					<td>AverageTradePrice</td>
+					<td><span id="AverageTradePrice"></span></td>
+				</tr>
+				<tr>
+					<td>LastTradeQuantity</td>
+					<td><span id="LastTradeQuantity"></span></td>
+				</tr>
+				<tr>
+					<td>TotalBuyQuantity</td>
+					<td><span id="TotalBuyQuantity"></span></td>
+				</tr>
+				<tr>
+					<td>TotalSellQuantity</td>
+					<td><span id="TotalSellQuantity"></span></td>
+				</tr>
+				<tr>
+					<td>mode</td>
+					<td><span id="mode"></span></td>
+				</tr>
+				<tr>
+					<td>tradeable</td>
+					<td><span id="tradeable"></span></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 class="pt-1 pb-1">Market Depth</h2>
+		<hr />
+
+		<div class="row">
+			<div id="buy" class="col-12 col-md-6">
+				<h4>Buy</h4>
+				<table class="table">
+					<thead class="thead-default">
+						<tr>
+							<th>#</th>
+							<th>Qty</th>
+							<th>Price</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="0">
+							<td>1</td>
+							<td class="qty"></td>
+							<td class="price"></td>
+							<td class="total"></td>
+						</tr>
+						<tr id="1">
+							<td>2</td>
+							<td class="qty"></td>
+							<td class="price"></td>
+							<td class="total"></td>
+						</tr>
+						<tr id="2">
+							<td>3</td>
+							<td class="qty"></td>
+							<td class="price"></td>
+							<td class="total"></td>
+						</tr>
+						<tr id="3">
+							<td>4</td>
+							<td class="qty"></td>
+							<td class="price"></td>
+							<td class="total"></td>
+						</tr>
+						<tr id="4">
+							<td>5</td>
+							<td class="qty"></td>
+							<td class="price"></td>
+							<td class="total"></td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				<div id="sell" class="col-12 col-md-6">
+					<h4>Sell</h4>
+					<table class="table">
+						<thead class="thead-default">
+							<tr>
+								<th>#</th>
+								<th>Qty</th>
+								<th>Price</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="0">
+								<td>1</td>
+								<td class="qty"></td>
+								<td class="price"></td>
+								<td class="total"></td>
+							</tr>
+							<tr id="1">
+								<td>2</td>
+								<td class="qty"></td>
+								<td class="price"></td>
+								<td class="total"></td>
+							</tr>
+							<tr id="2">
+								<td>3</td>
+								<td class="qty"></td>
+								<td class="price"></td>
+								<td class="total"></td>
+							</tr>
+							<tr id="3">
+								<td>4</td>
+								<td class="qty"></td>
+								<td class="price"></td>
+								<td class="total"></td>
+							</tr>
+							<tr id="4">
+								<td>5</td>
+								<td class="qty"></td>
+								<td class="price"></td>
+								<td class="total"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<hr />
+
+		<footer class="text-center">
+			This is just edited version of <a href="https://github.com/rainmattertech/kiteconnectjs">rainmattertech/kiteconnectjs</a> (Zerodha) find docs at <a href="https://kite.trade/">Kite.trade</a>
+		</footer>
+
+	</div>
+</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+	<script src="tick.js"></script>
+
+<script type="text/javascript">
+function roundbytwo(num) {
+	return parseFloat(Math.round(num * 100) / 100).toFixed(2);
+}
+$( document ).ready(function() {
+	var getUrlParameter = function getUrlParameter(sParam) {
+		var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+			sURLVariables = sPageURL.split('&'),
+			sParameterName,
+			i;
+
+		for (i = 0; i < sURLVariables.length; i++) {
+			sParameterName = sURLVariables[i].split('=');
+
+			if (sParameterName[0] === sParam) {
+				return sParameterName[1] === undefined ? true : sParameterName[1];
+			}
+		}
+	};
+	var token = parseInt(getUrlParameter('token'));
+
+	$("#drop").val(token);
+	var name = $('option:selected', this).text();
+	$(document).ready(TickOut(token, name));
+});
+
+$("#drop").change(function() {
+	$("#form").submit();
+});
+
+function TickOut(token, name) {
+	$('#name').text(name);
+	if(token) {
+		
+		$('#output').show();
+		/*
+			You can pass parameters here for API KEY, User ID and Public Token
+			else you can define directly to tick.js file at begining
+			e.g. KiteTicker(api_key, user_id, public_token);
+		*/
+		var ticker = new KiteTicker();
+
+		// set autoreconnect with 10 maximum reconnections and 5 second interval
+		ticker.autoReconnect(true, 10, 5)
+		ticker.connect();
+		ticker.on("tick", setTick);
+		ticker.on("connect", subscribe);
+
+		ticker.on("noreconnect", function() {
+			console.log("noreconnect")
+		});
+
+		ticker.on("reconnecting", function(reconnect_interval, reconnections) {
+			console.log("Reconnecting: attempet - ", reconnections, " innterval - ", reconnect_interval);
+		});
+		function setTick(ticks) {
+			// Check console for ticks debug!
+			console.log("Ticks", ticks);
+			$('#Token').text(ticks[0]['Token']);
+			$('#AverageTradePrice').text(ticks[0]['AverageTradePrice']);
+			$('#OpenPrice').text(ticks[0]['OpenPrice']);
+			$('#HighPrice').text(ticks[0]['HighPrice']);
+			$('#LowPrice').text(ticks[0]['LowPrice']);
+			$('#ClosePrice').text(ticks[0]['ClosePrice']);
+			$('#VolumeTradedToday').text(ticks[0]['VolumeTradedToday']);
+			$('#NetPriceChangeFromClosingPrice').text(ticks[0]['NetPriceChangeFromClosingPrice']);
+			$('#PriceChangeFromClosingPrice').text(ticks[0]['PriceChangeFromClosingPrice']);
+			$('#NetPriceChangeFromClosingPriceRound').text(roundbytwo(ticks[0]['NetPriceChangeFromClosingPrice']));
+			$('#PriceChangeFromClosingPriceRound').text(roundbytwo(ticks[0]['PriceChangeFromClosingPrice']));
+			$('#LastTradeQuantity').text(ticks[0]['LastTradeQuantity']);
+			$('#LastTradedPrice').text(ticks[0]['LastTradedPrice']);
+			$('#TotalBuyQuantity').text(ticks[0]['TotalBuyQuantity']);
+			$('#TotalSellQuantity').text(ticks[0]['TotalSellQuantity']);
+			$('#mode').text(ticks[0]['mode']);
+			$('#tradeable').text(ticks[0]['tradeable']);
+
+			$.each(ticks[0]['Depth']['buy'], function( index, value ) {
+				$('#buy #'+index+" .price").text(value['Price']);
+				$('#buy #'+index+" .qty").text(value['Quantity']);
+				$('#buy #'+index+" .total").text(value['Total']);
+			});
+			$.each(ticks[0]['Depth']['sell'], function( index, value ) {
+				$('#sell #'+index+" .price").text(value['Price']);
+				$('#sell #'+index+" .qty").text(value['Quantity']);
+				$('#sell #'+index+" .total").text(value['Total']);
+			});
+		}
+		function subscribe() {
+			var items = [];
+			items.push(token);
+			ticker.subscribe(items);
+			ticker.setMode(ticker.modeFull, items);
+		}
+	}
+}
+</script>
+</body>
+</html>
